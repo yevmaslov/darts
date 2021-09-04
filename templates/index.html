@@ -1,0 +1,20 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{super()}}
+<style>
+  .control-label {display: none;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <h2>Enter players names</h2>
+    <hr>
+    <div class="form-group col-md-2">
+        {{ wtf.quick_form(form) }}
+    </div>
+
+{% endblock %}

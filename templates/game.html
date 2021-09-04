@@ -1,0 +1,100 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block styles %}
+{{super()}}
+<style>
+  .control-label {display: none;}
+  a:active {color: black}
+  a:visited {color: black}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+
+    <h2>Enter a sum of throws</h2>
+    <hr>
+
+    <form action="" method="post" class="form" role="form">
+        {{ form.csrf_token() }}
+        <div class="form-group">
+                {% with message = get_flashed_messages() %}
+                  {% if message %}
+                      <h3>{{ message[0] }}</h3>
+                  {% endif %}
+                {% endwith %}
+
+        <div class="row">
+          {% for player in players %}
+              <div class="form-group col-md-3">
+                <h3>{{ player }}</h3>
+              </div>
+          {% endfor %}
+        </div>
+        <div class="row">
+          {% for field in form %}
+              {% if field.name.endswith('throw1') %}
+                  <div class="form-group col-md-3">
+                    {{ wtf.form_field(field, class='form-control', placeholder='Throw 1 sum')}}
+                  </div>
+              {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="row">
+          {% for field in form %}
+              {% if field.name.endswith('throw2') %}
+                  <div class="form-group col-md-3">
+                    {{ wtf.form_field(field, class='form-control', placeholder='Throw 2 sum')}}
+                  </div>
+              {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="row">
+          {% for field in form %}
+              {% if field.name.endswith('throw3') %}
+                  <div class="form-group col-md-3">
+                    {{ wtf.form_field(field, class='form-control', placeholder='Throw 3 sum')}}
+                  </div>
+              {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="row">
+          {% for field in form %}
+              {% if field.name.endswith('player') %}
+                  <div class="form-group col-md-3">
+                    {{ wtf.form_field(field, class='form-control')}}
+                  </div>
+              {% endif %}
+          {% endfor %}
+        </div>
+
+        {{ wtf.form_field(form.submit) }}
+        </div>
+    </form>
+
+    <form action="">
+        <button type="button" class="btn btn-outline-secondary">
+            <a href="{{ url_for('index') }}" >Change players</a>
+        </button>
+    </form>
+
+    <hr>
+    {% for row in players_data %}
+        <div class="row">
+            {% for value in row %}
+                <div class="form-group col-md-3">
+                    <input type="text" readonly class="form-control" value=" Prev game score: {{ value }}">
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}
